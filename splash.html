@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Shopping - स्प्लैश स्क्रीन</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #2D1E5F; /* Deep purple background matching the logo image */
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .splash-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+        
+        .splash-logo {
+            max-width: 80%;
+            max-height: 80vh;
+            animation: fadeIn 0.8s ease-in-out, pulse 2s infinite alternate;
+        }
+        
+        .loading-dots {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: #FF6B6B; /* Pink color matching the logo text */
+            animation: loadingDots 1.4s infinite ease-in-out;
+        }
+        
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        .timer {
+            margin-top: 20px;
+            font-family: 'Arial', sans-serif;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes loadingDots {
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-container">
+        <img src="images/splash_logo.png" alt="MG Shopping Logo" class="splash-logo">
+        <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="timer" id="countdown-timer"></div>
+    </div>
+
+    <script>
+        // Set display time to 1 minute (60000 milliseconds)
+        const displayTime = 60000;
+        
+        // Redirect to main page after 1 minute
+        setTimeout(function() {
+            window.location.href = "index.html";
+        }, displayTime);
+        
+        // Add a countdown timer for user feedback
+        const startTime = Date.now();
+        const timerElement = document.getElementById('countdown-timer');
+        
+        function updateTimer() {
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = displayTime - elapsedTime;
+            
+            if (remainingTime > 0) {
+                const seconds = Math.ceil(remainingTime / 1000);
+                timerElement.textContent = `मुख्य पेज पर जाने में ${seconds} सेकंड शेष`;
+                requestAnimationFrame(updateTimer);
+            } else {
+                timerElement.textContent = 'रीडायरेक्ट हो रहा है...';
+            }
+        }
+        
+        // Start the timer
+        updateTimer();
+    </script>
+</body>
+</html>

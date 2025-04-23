@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कार्ट - MG Shopping</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            /* Primary Colors */
+            --primary-color: #8A2BE2; /* Electric Purple */
+            --secondary-color: #00BFFF; /* Sky Blue */
+            --accent-color: #FF6347; /* Sunset Orange */
+            
+            /* Secondary Colors */
+            --white-color: rgba(255, 255, 255, 0.9);
+            --glass-white: rgba(255, 255, 255, 0.2);
+            --deep-navy: #1A1A2E;
+            
+            /* Background Colors */
+            --bg-gradient-1: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+            --bg-gradient-2: linear-gradient(135deg, #16213E 0%, #0F3460 100%);
+            
+            /* UI Effects */
+            --glass-effect: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --neumorphic-shadow: 6px 6px 12px rgba(0, 0, 0, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.1);
+            --inner-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15), inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+            --glow-effect: 0 0 15px rgba(138, 43, 226, 0.5);
+            
+            /* Other */
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-xl: 32px;
+            --border-radius-full: 50%;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--bg-gradient-1);
+            color: var(--white-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Glassmorphism Card */
+        .glass-card {
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        /* Neumorphic Button */
+        .neumorphic-btn {
+            background: var(--deep-navy);
+            box-shadow: var(--neumorphic-shadow);
+            border-radius: var(--border-radius-md);
+            border: none;
+            padding: 12px 24px;
+            color: var(--white-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neumorphic-btn:hover {
+            box-shadow: var(--inner-shadow);
+            transform: translateY(2px);
+        }
+        
+        .neumorphic-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .neumorphic-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* 3D Icon */
+        .icon-3d {
+            font-size: 1.5rem;
+            color: var(--white-color);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-3d:hover {
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 600;
+        }
+        
+        /* Glow Effect */
+        .glow-effect {
+            box-shadow: var(--glow-effect);
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 1rem 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-right: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+        
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: var(--white-color);
+        }
+        
+        /* Search Bar Styles */
+        .search-bar {
+            width: 100%;
+            max-width: 700px;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius-full);
+            font-size: 1rem;
+            outline: none;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--white-color);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .search-bar input:focus {
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        .search-bar button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--white-color);
+        }
+        
+        /* Navigation Styles */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-full);
+            color: var(--white-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--neumorphic-shadow);
+        }
+        
+        .category-nav a:hover,
+        .category-nav a.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: var(--glow-effect);
+            transform: translateY(-3px);
+        }
+        
+        /* Main Content Styles */
+        main {
+            padding: 1rem 0;
+            position: relative;
+        }
+        
+        /* 3D Logo Styles */
+        .logo-3d-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 30px;
+        }
+        
+        .logo-3d {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .logo-3d-text {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 1px;
+            transform-style: preserve-3d;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        .logo-3d-text::before {
+            content: 'MG Shopping';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: blur(10px);
+            opacity: 0.7;
+            z-index: 1;
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .logo-3d-text::after {
+            content: 'MG Shopping';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(2px);
+        }
+        
+        .logo-3d-tagline {
+            font-size: 0.9rem;
+            color: var(--white-color);
+            margin-top: 5px;
+            opacity: 0.9;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            animation: taglineGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0) rotateX(10deg);
+            }
+            50% {
+                transform: translateY(-10px) rotateX(15deg);
+            }
+        }
+        
+        @keyframes logoGlow {
+            0% {
+                filter: blur(10px);
+                opacity: 0.5;
+            }
+            100% {
+                filter: blur(15px);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes taglineGlow {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            }
+        }
+        
+        /* Cart Styles */
+        .cart-section {
+            position: relative;
+            padding: 2rem;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--glass-shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1rem;
+        }
+        
+        .cart-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius-md);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+        
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: var(--white-color);
+        }
+        
+        .cart-item-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.25rem;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-effect);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-sm);
+            color: var(--white-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quantity-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            background: var(--glass-effect);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-sm);
+            color: var(--white-color);
+            margin: 0 0.5rem;
+        }
+        
+        .cart-item-remove {
+            color: var(--accent-color);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+        
+        .cart-item-remove:hover {
+            transform: scale(1.1);
+            color: #ff8a7a;
+        }
+        
+        .cart-summary {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius-md);
+            padding: 1.5rem;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .summary-row:last-child {
+            margin-bottom: 0;
+            padding-top: 1rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        
+        .summary-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .summary-value {
+            font-weight: 500;
+        }
+        
+        .summary-total-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white-color);
+        }
+        
+        .summary-total-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .continue-shopping {
+            display: flex;
+            align-items: center;
+            color: var(--white-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .continue-shopping i {
+            margin-right: 0.5rem;
+        }
+        
+        .continue-shopping:hover {
+            color: var(--secondary-color);
+            transform: translateX(-5px);
+        }
+        
+        .checkout-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+        }
+        
+        .checkout-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .checkout-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Empty Cart */
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .empty-cart-icon {
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-cart-text {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: var(--bg-gradient-2);
+            color: var(--white-color);
+            padding: 3rem 0 5rem;
+            position: relative;
+            margin-top: 3rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary-color);
+            border-radius: var(--border-radius-full);
+        }
+        
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .admin-login-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        
+        .admin-login-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white-color);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            z-index: 100;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--white-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .bottom-nav-item i {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .bottom-nav-item span {
+            font-size: 0.8rem;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--primary-color);
+        }
+        
+        .bottom-nav-item.active i {
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+        
+        .bottom-nav-item:hover i {
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cart-item-image {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                width: 100%;
+                height: 150px;
+            }
+            
+            .cart-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .continue-shopping {
+                margin-bottom: 1rem;
+            }
+            
+            .logo-3d-text {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .cart-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .logo-3d-container {
+                margin-bottom: 1.5rem;
+            }
+            
+            .cart-title {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Logo Edit Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--bg-gradient-2);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            color: var(--white-color);
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--white-color);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--white-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-md);
+            color: var(--white-color);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.2);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn-cancel {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .modal-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white-color);
+        }
+        
+        .modal-btn-save {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .modal-btn-save:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+        }
+        
+        /* Edit Button */
+        .edit-logo-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-full);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none; /* Hidden by default, shown only to admin */
+        }
+        
+        .edit-logo-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white-color);
+            transform: rotate(15deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>MG Shopping</h1>
+                    <span>अपनी पसंद की खरीदारी</span>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="प्रोडक्ट खोजें...">
+                    <button><i class="ri-search-line icon-3d"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Navigation -->
+    <div class="container">
+        <div class="category-nav">
+            <a href="index.html">सभी प्रोडक्ट्स</a>
+            <a href="categories/mobile.html">मोबाइल</a>
+            <a href="categories/electronics.html">इलेक्ट्रॉनिक्स</a>
+            <a href="categories/fashion.html">फैशन</a>
+            <a href="categories/home.html">होम</a>
+            <a href="categories/beauty.html">ब्यूटी</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <section class="cart-section">
+                <div class="cart-header">
+                    <div class="logo-3d-container">
+                        <div class="logo-3d" id="logo-3d">
+                            <div class="logo-3d-text">MG Shopping</div>
+                            <div class="logo-3d-tagline">Sab Kuch, Sabke Liye</div>
+                        </div>
+                        <button class="edit-logo-btn" id="edit-logo-btn" title="Edit Logo">
+                            <i class="ri-pencil-line"></i>
+                        </button>
+                    </div>
+                    <h2 class="cart-title">आपका कार्ट</h2>
+                </div>
+                
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be loaded here dynamically -->
+                    
+                    <!-- Sample Cart Item 1 -->
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="https://via.placeholder.com/300x200?text=Smartphone" alt="स्मार्टफोन प्रो मैक्स">
+                        </div>
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-title">स्मार्टफोन प्रो मैक्स</h3>
+                            <div class="cart-item-price">₹24,999</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="10">
+                                <button class="quantity-btn">+</button>
+                            </div>
+                        </div>
+                        <button class="cart-item-remove">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Sample Cart Item 2 -->
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="https://via.placeholder.com/300x200?text=Wireless+Headphones" alt="वायरलेस ब्लूटूथ हेडफोन">
+                        </div>
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-title">वायरलेस ब्लूटूथ हेडफोन</h3>
+                            <div class="cart-item-price">₹2,999</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="10">
+                                <button class="quantity-btn">+</button>
+                            </div>
+                        </div>
+                        <button class="cart-item-remove">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <div class="summary-label">सबटोटल</div>
+                        <div class="summary-value">₹27,998</div>
+                    </div>
+                    <div class="summary-row">
+                        <div class="summary-label">डिलीवरी चार्ज</div>
+                        <div class="summary-value">₹99</div>
+                    </div>
+                    <div class="summary-row">
+                        <div class="summary-label">टैक्स</div>
+                        <div class="summary-value">₹1,400</div>
+                    </div>
+                    <div class="summary-row">
+                        <div class="summary-total-label">कुल राशि</div>
+                        <div class="summary-total-value">₹29,497</div>
+                    </div>
+                </div>
+                
+                <div class="cart-actions">
+                    <a href="index.html" class="continue-shopping">
+                        <i class="ri-arrow-left-line"></i> शॉपिंग जारी रखें
+                    </a>
+                    <button class="checkout-btn">चेकआउट करें</button>
+                </div>
+            </section>
+            
+            <!-- Empty Cart (Hidden by default) -->
+            <div class="empty-cart" style="display: none;">
+                <div class="empty-cart-icon">
+                    <i class="ri-shopping-cart-line"></i>
+                </div>
+                <div class="empty-cart-text">आपका कार्ट खाली है</div>
+                <a href="index.html" class="btn btn-primary">अभी शॉपिंग करें</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <i class="ri-home-line icon-3d"></i>
+            <span>होम</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-search-line icon-3d"></i>
+            <span>खोजें</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-heart-line icon-3d"></i>
+            <span>विशलिस्ट</span>
+        </a>
+        <a href="cart.html" class="bottom-nav-item active">
+            <i class="ri-shopping-cart-line icon-3d"></i>
+            <span>कार्ट</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-user-line icon-3d"></i>
+            <span>प्रोफाइल</span>
+        </a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MG Shopping के बारे में</h3>
+                    <p id="footer-about">MG Shopping आपकी सभी शॉपिंग जरूरतों के लिए एक ही जगह है। हम आपको एक बेहतरीन शॉपिंग अनुभव देने के लिए वेब से सर्वश्रेष्ठ उत्पादों का चयन करते हैं।</p>
+                </div>
+                <div class="footer-section">
+                    <h3>संपर्क करें</h3>
+                    <p>ईमेल: <span id="footer-email">info@mgshopping.com</span></p>
+                    <p>फोन: <span id="footer-phone">+91 9876543210</span></p>
+                    <p>वेबसाइट: <a id="footer-website" href="https://www.mgshopping.com" target="_blank">www.mgshopping.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>शॉपिंग जानकारी</h3>
+                    <p id="footer-shopping-info">हम आपको सर्वोत्तम डील्स लाने के लिए विश्वसनीय रिटेलर्स के साथ साझेदारी करते हैं। सभी खरीदारी हमारे एफिलिएट पार्टनर्स के माध्यम से सुरक्षित रूप से प्रोसेस की जाती है।</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MG Shopping. सर्वाधिकार सुरक्षित।</p>
+                <button id="admin-login-btn" class="admin-login-btn">एडमिन लॉगिन</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logo Edit Modal -->
+    <div id="logo-edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="close-logo-modal">&times;</span>
+            <h2 class="modal-title">लोगो एडिट करें</h2>
+            <form id="logo-edit-form">
+                <div class="form-group">
+                    <label for="logo-text">लोगो टेक्स्ट</label>
+                    <input type="text" id="logo-text" class="form-control" value="MG Shopping" placeholder="लोगो टेक्स्ट दर्ज करें">
+                </div>
+                <div class="form-group">
+                    <label for="logo-tagline">टैगलाइन</label>
+                    <input type="text" id="logo-tagline" class="form-control" value="Sab Kuch, Sabke Liye" placeholder="टैगलाइन दर्ज करें">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn modal-btn-cancel" id="cancel-logo-edit">रद्द करें</button>
+                    <button type="submit" class="modal-btn modal-btn-save">सेव करें</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // DOM Elements
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const editLogoBtn = document.getElementById('edit-logo-btn');
+        const logoEditModal = document.getElementById('logo-edit-modal');
+        const closeLogoModal = document.getElementById('close-logo-modal');
+        const cancelLogoEdit = document.getElementById('cancel-logo-edit');
+        const logoEditForm = document.getElementById('logo-edit-form');
+        const logoText = document.getElementById('logo-text');
+        const logoTagline = document.getElementById('logo-tagline');
+        const logo3dText = document.querySelector('.logo-3d-text');
+        const logo3dTagline = document.querySelector('.logo-3d-tagline');
+        
+        // Check if user is logged in
+        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        // Show edit button if logged in
+        if (isLoggedIn) {
+            editLogoBtn.style.display = 'flex';
+            adminLoginBtn.textContent = 'लॉगआउट';
+        }
+        
+        // Load logo data from localStorage
+        function loadLogoData() {
+            const logoData = JSON.parse(localStorage.getItem('logoData')) || {
+                text: 'MG Shopping',
+                tagline: 'Sab Kuch, Sabke Liye'
+            };
+            
+            logo3dText.textContent = logoData.text;
+            logo3dTagline.textContent = logoData.tagline;
+            
+            // Update form values
+            logoText.value = logoData.text;
+            logoTagline.value = logoData.tagline;
+        }
+        
+        // Admin Login Button
+        adminLoginBtn.addEventListener('click', function() {
+            if (isLoggedIn) {
+                // Logout
+                localStorage.setItem('isLoggedIn', 'false');
+                isLoggedIn = false;
+                editLogoBtn.style.display = 'none';
+                adminLoginBtn.textContent = 'एडमिन लॉगिन';
+            } else {
+                // Show login prompt
+                const password = prompt('एडमिन पासवर्ड दर्ज करें:');
+                
+                if (password === 'admin123') {
+                    localStorage.setItem('isLoggedIn', 'true');
+                    isLoggedIn = true;
+                    editLogoBtn.style.display = 'flex';
+                    adminLoginBtn.textContent = 'लॉगआउट';
+                } else if (password !== null) {
+                    alert('गलत पासवर्ड! कृपया पुनः प्रयास करें।');
+                }
+            }
+        });
+        
+        // Edit Logo Button
+        editLogoBtn.addEventListener('click', function() {
+            logoEditModal.style.display = 'flex';
+        });
+        
+        // Close Logo Modal
+        closeLogoModal.addEventListener('click', function() {
+            logoEditModal.style.display = 'none';
+        });
+        
+        // Cancel Logo Edit
+        cancelLogoEdit.addEventListener('click', function() {
+            logoEditModal.style.display = 'none';
+        });
+        
+        // Logo Edit Form Submit
+        logoEditForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newLogoText = logoText.value.trim();
+            const newLogoTagline = logoTagline.value.trim();
+            
+            if (newLogoText === '') {
+                alert('लोगो टेक्स्ट खाली नहीं हो सकता!');
+                return;
+            }
+            
+            // Save logo data to localStorage
+            const logoData = {
+                text: newLogoText,
+                tagline: newLogoTagline
+            };
+            localStorage.setItem('logoData', JSON.stringify(logoData));
+            
+            // Update logo on page
+            logo3dText.textContent = newLogoText;
+            logo3dTagline.textContent = newLogoTagline;
+            
+            // Close modal
+            logoEditModal.style.display = 'none';
+            
+            alert('लोगो अपडेट कर दिया गया है!');
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === logoEditModal) {
+                logoEditModal.style.display = 'none';
+            }
+        });
+        
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', loadLogoData);
+        
+        // Cart Functionality
+        const quantityBtns = document.querySelectorAll('.quantity-btn');
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        const removeButtons = document.querySelectorAll('.cart-item-remove');
+        
+        // Quantity Buttons
+        quantityBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('.quantity-input');
+                let value = parseInt(input.value);
+                
+                if (this.textContent === '+') {
+                    if (value < 10) {
+                        input.value = value + 1;
+                    }
+                } else {
+                    if (value > 1) {
+                        input.value = value - 1;
+                    }
+                }
+                
+                // Update cart totals (in a real app)
+                // updateCartTotals();
+            });
+        });
+        
+        // Remove Buttons
+        removeButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const cartItem = this.closest('.cart-item');
+                cartItem.style.opacity = '0';
+                setTimeout(() => {
+                    cartItem.remove();
+                    
+                    // Check if cart is empty
+                    const cartItems = document.querySelectorAll('.cart-item');
+                    if (cartItems.length === 0) {
+                        document.querySelector('.cart-section').style.display = 'none';
+                        document.querySelector('.empty-cart').style.display = 'block';
+                    }
+                    
+                    // Update cart totals (in a real app)
+                    // updateCartTotals();
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Shopping - अपनी पसंद की खरीदारी</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            /* Primary Colors */
+            --primary-color: #8A2BE2; /* Electric Purple */
+            --secondary-color: #00BFFF; /* Sky Blue */
+            --accent-color: #FF6347; /* Sunset Orange */
+            
+            /* Secondary Colors */
+            --white-color: rgba(255, 255, 255, 0.9);
+            --glass-white: rgba(255, 255, 255, 0.2);
+            --deep-navy: #1A1A2E;
+            
+            /* Background Colors */
+            --bg-gradient-1: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+            --bg-gradient-2: linear-gradient(135deg, #16213E 0%, #0F3460 100%);
+            
+            /* UI Effects */
+            --glass-effect: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --neumorphic-shadow: 6px 6px 12px rgba(0, 0, 0, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.1);
+            --inner-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15), inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+            --glow-effect: 0 0 15px rgba(138, 43, 226, 0.5);
+            
+            /* Other */
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-xl: 32px;
+            --border-radius-full: 50%;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--bg-gradient-1);
+            color: var(--white-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Glassmorphism Card */
+        .glass-card {
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        /* Neumorphic Button */
+        .neumorphic-btn {
+            background: var(--deep-navy);
+            box-shadow: var(--neumorphic-shadow);
+            border-radius: var(--border-radius-md);
+            border: none;
+            padding: 12px 24px;
+            color: var(--white-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neumorphic-btn:hover {
+            box-shadow: var(--inner-shadow);
+            transform: translateY(2px);
+        }
+        
+        .neumorphic-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .neumorphic-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* 3D Icon */
+        .icon-3d {
+            font-size: 1.5rem;
+            color: var(--white-color);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-3d:hover {
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 600;
+        }
+        
+        /* Glow Effect */
+        .glow-effect {
+            box-shadow: var(--glow-effect);
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 1rem 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-right: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+        
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: var(--white-color);
+        }
+        
+        /* Search Bar Styles */
+        .search-bar {
+            width: 100%;
+            max-width: 700px;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius-full);
+            font-size: 1rem;
+            outline: none;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--white-color);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .search-bar input:focus {
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        .search-bar button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--white-color);
+        }
+        
+        /* Navigation Styles */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-full);
+            color: var(--white-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--neumorphic-shadow);
+        }
+        
+        .category-nav a:hover,
+        .category-nav a.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: var(--glow-effect);
+            transform: translateY(-3px);
+        }
+        
+        /* Main Content Styles */
+        main {
+            padding: 1rem 0;
+            position: relative;
+        }
+        
+        /* Carousel Banner */
+        .carousel-banner {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .carousel-content {
+            max-width: 50%;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .carousel-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .carousel-content p {
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.7), transparent);
+            z-index: 1;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-indicator.active {
+            background: white;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius-full);
+            box-shadow: var(--glow-effect);
+        }
+        
+        /* Featured Categories */
+        .featured-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-card {
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--white-color);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .category-name {
+            font-weight: 500;
+            color: var(--white-color);
+        }
+        
+        /* Product Grid Styles */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .product-card {
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-details {
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--white-color);
+        }
+        
+        .product-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .price-inr {
+            font-weight: 700;
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .price-usd {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        /* Special Offer Banner */
+        .special-offer {
+            background: linear-gradient(135deg, var(--accent-color), #FFB347);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .special-offer h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .special-offer p {
+            color: white;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+        
+        .special-offer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+        }
+        
+        /* Shopping Links Section */
+        .shopping-links {
+            margin-bottom: 2rem;
+        }
+        
+        .shopping-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .shopping-link-card {
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .shopping-link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        .shopping-link-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--white-color);
+        }
+        
+        .shopping-link-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .shopping-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .shopping-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .shopping-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .shopping-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: var(--bg-gradient-2);
+            color: var(--white-color);
+            padding: 3rem 0 5rem;
+            position: relative;
+            margin-top: 3rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary-color);
+            border-radius: var(--border-radius-full);
+        }
+        
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .admin-login-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        
+        .admin-login-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white-color);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .admin-panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--white-color);
+        }
+        
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .admin-tab.active {
+            color: var(--white-color);
+        }
+        
+        .admin-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+        
+        .admin-tab-content {
+            display: none;
+        }
+        
+        .admin-tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--white-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-md);
+            color: var(--white-color);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(0, 191, 255, 0.2);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .image-preview-text {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .admin-product-list {
+            margin-top: 1.5rem;
+        }
+        
+        .admin-product-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius-md);
+            margin-bottom: 0.5rem;
+        }
+        
+        .admin-product-image {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+        
+        .admin-product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .admin-product-info {
+            flex: 1;
+        }
+        
+        .admin-product-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: var(--white-color);
+        }
+        
+        .admin-product-price {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .admin-product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .admin-btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-md);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-btn-delete {
+            background: rgba(255, 99, 71, 0.2);
+            color: #FF6347;
+            border: 1px solid rgba(255, 99, 71, 0.3);
+        }
+        
+        .admin-btn-delete:hover {
+            background: rgba(255, 99, 71, 0.3);
+        }
+        
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--bg-gradient-2);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            color: var(--white-color);
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--white-color);
+            text-align: center;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .category-nav {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+            
+            .category-nav::-webkit-scrollbar {
+                height: 0;
+            }
+            
+            .category-nav a {
+                flex: 0 0 auto;
+            }
+            
+            .carousel-content {
+                max-width: 80%;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .carousel-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            z-index: 100;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--white-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .bottom-nav-item i {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .bottom-nav-item span {
+            font-size: 0.8rem;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--primary-color);
+        }
+        
+        .bottom-nav-item.active i {
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+        
+        .bottom-nav-item:hover i {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>MG Shopping</h1>
+                    <span>अपनी पसंद की खरीदारी</span>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="प्रोडक्ट खोजें...">
+                    <button><i class="ri-search-line icon-3d"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Navigation -->
+    <div class="container">
+        <div class="category-nav">
+            <a href="index.html" class="active">सभी प्रोडक्ट्स</a>
+            <a href="categories/mobile.html">मोबाइल</a>
+            <a href="categories/electronics.html">इलेक्ट्रॉनिक्स</a>
+            <a href="categories/fashion.html">फैशन</a>
+            <a href="categories/home.html">होम</a>
+            <a href="categories/beauty.html">ब्यूटी</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Admin Panel (Hidden by Default) -->
+            <div id="admin-panel" class="admin-panel">
+                <h2>एडमिन पैनल</h2>
+                <div class="admin-tabs">
+                    <div class="admin-tab active" data-tab="products">प्रोडक्ट्स</div>
+                    <div class="admin-tab" data-tab="banner-ads">बैनर एड्स</div>
+                    <div class="admin-tab" data-tab="footer">फुटर</div>
+                    <div class="admin-tab" data-tab="shopping-links">शॉपिंग लिंक्स</div>
+                </div>
+                
+                <!-- Products Tab -->
+                <div class="admin-tab-content active" id="products-tab">
+                    <form id="product-form">
+                        <div class="form-group">
+                            <label for="product-title">प्रोडक्ट टाइटल</label>
+                            <input type="text" id="product-title" class="form-control" placeholder="प्रोडक्ट का नाम दर्ज करें" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-description">प्रोडक्ट डिस्क्रिप्शन</label>
+                            <textarea id="product-description" class="form-control" placeholder="प्रोडक्ट का विवरण दर्ज करें" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price-inr">प्राइस (INR)</label>
+                            <input type="number" id="product-price-inr" class="form-control" placeholder="₹ प्राइस" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price-usd">प्राइस (USD)</label>
+                            <input type="number" id="product-price-usd" class="form-control" placeholder="$ प्राइस" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-affiliate-link">एफिलिएट लिंक</label>
+                            <input type="url" id="product-affiliate-link" class="form-control" placeholder="https://example.com/affiliate-link" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-image">प्रोडक्ट इमेज</label>
+                            <div class="image-preview" id="product-image-preview">
+                                <span class="image-preview-text">इमेज प्रीव्यू</span>
+                            </div>
+                            <input type="file" id="product-image" accept="image/*" required>
+                        </div>
+                        <div class="admin-actions">
+                            <button type="submit" class="btn btn-primary">प्रोडक्ट जोड़ें</button>
+                        </div>
+                    </form>
+                    
+                    <div class="admin-product-list" id="admin-product-list">
+                        <!-- Product items will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Banner Ads Tab -->
+                <div class="admin-tab-content" id="banner-ads-tab">
+                    <form id="banner-form">
+                        <div class="form-group">
+                            <label for="banner-html">बैनर HTML कोड</label>
+                            <textarea id="banner-html" class="form-control" placeholder="HTML या AdSense कोड दर्ज करें" rows="5" required></textarea>
+                        </div>
+                        <div class="admin-actions">
+                            <button type="submit" class="btn btn-primary">बैनर जोड़ें</button>
+                        </div>
+                    </form>
+                    
+                    <div class="admin-banner-list" id="admin-banner-list">
+                        <!-- Banner items will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Footer Tab -->
+                <div class="admin-tab-content" id="footer-tab">
+                    <form id="footer-form">
+                        <div class="form-group">
+                            <label for="footer-email">ईमेल</label>
+                            <input type="email" id="footer-email-input" class="form-control" placeholder="आपका ईमेल" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="footer-phone">फोन</label>
+                            <input type="text" id="footer-phone-input" class="form-control" placeholder="आपका फोन नंबर" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="footer-website">वेबसाइट लिंक</label>
+                            <input type="url" id="footer-website-input" class="form-control" placeholder="https://example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="footer-about">अबाउट/शॉपिंग इन्फो</label>
+                            <textarea id="footer-about-input" class="form-control" placeholder="आपके बारे में या शॉपिंग जानकारी" rows="3" required></textarea>
+                        </div>
+                        <div class="admin-actions">
+                            <button type="submit" class="btn btn-primary">फुटर अपडेट करें</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Shopping Links Tab -->
+                <div class="admin-tab-content" id="shopping-links-tab">
+                    <form id="shopping-link-form">
+                        <div class="form-group">
+                            <label for="shopping-link-title">लिंक टाइटल</label>
+                            <input type="text" id="shopping-link-title" class="form-control" placeholder="लिंक का टाइटल" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="shopping-link-description">लिंक डिस्क्रिप्शन</label>
+                            <textarea id="shopping-link-description" class="form-control" placeholder="लिंक का विवरण" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="shopping-link-url">लिंक URL</label>
+                            <input type="url" id="shopping-link-url" class="form-control" placeholder="https://example.com" required>
+                        </div>
+                        <div class="admin-actions">
+                            <button type="submit" class="btn btn-primary">शॉपिंग लिंक जोड़ें</button>
+                        </div>
+                    </form>
+                    
+                    <div class="admin-shopping-links-list" id="admin-shopping-links-list">
+                        <!-- Shopping link items will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carousel Banner -->
+            <div class="carousel-banner">
+                <div class="carousel-slide active" style="background-image: url('https://via.placeholder.com/1200x400?text=Banner+1')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-content">
+                        <h2>नए स्मार्टफोन्स पर 20% की छूट</h2>
+                        <p>सीमित समय के लिए सभी प्रीमियम स्मार्टफोन्स पर विशेष ऑफर</p>
+                        <a href="categories/mobile.html" class="btn btn-primary">अभी खरीदें</a>
+                    </div>
+                </div>
+                <div class="carousel-slide" style="background-image: url('https://via.placeholder.com/1200x400?text=Banner+2')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-content">
+                        <h2>होम डेकोर कलेक्शन</h2>
+                        <p>अपने घर को स्टाइलिश बनाएं हमारे नए होम डेकोर कलेक्शन के साथ</p>
+                        <a href="categories/home.html" class="btn btn-primary">अभी खरीदें</a>
+                    </div>
+                </div>
+                <div class="carousel-slide" style="background-image: url('https://via.placeholder.com/1200x400?text=Banner+3')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-content">
+                        <h2>फैशन सेल</h2>
+                        <p>सभी फैशन आइटम्स पर 30% तक की छूट</p>
+                        <a href="categories/fashion.html" class="btn btn-primary">अभी खरीदें</a>
+                    </div>
+                </div>
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+            
+            <!-- Featured Categories -->
+            <section id="categories">
+                <div class="section-title">
+                    <h2>श्रेणियां</h2>
+                </div>
+                <div class="featured-categories">
+                    <a href="categories/mobile.html" class="category-card">
+                        <i class="ri-smartphone-line category-icon"></i>
+                        <div class="category-name">मोबाइल</div>
+                    </a>
+                    <a href="categories/electronics.html" class="category-card">
+                        <i class="ri-computer-line category-icon"></i>
+                        <div class="category-name">इलेक्ट्रॉनिक्स</div>
+                    </a>
+                    <a href="categories/fashion.html" class="category-card">
+                        <i class="ri-t-shirt-line category-icon"></i>
+                        <div class="category-name">फैशन</div>
+                    </a>
+                    <a href="categories/home.html" class="category-card">
+                        <i class="ri-home-line category-icon"></i>
+                        <div class="category-name">होम</div>
+                    </a>
+                    <a href="categories/beauty.html" class="category-card">
+                        <i class="ri-makeup-brush-line category-icon"></i>
+                        <div class="category-name">ब्यूटी</div>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Featured Products -->
+            <section id="products">
+                <div class="section-title">
+                    <h2>फीचर्ड प्रोडक्ट्स</h2>
+                </div>
+                <div class="products-grid" id="products-container">
+                    <!-- Products will be loaded here dynamically -->
+                    
+                    <!-- Sample Product 1 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Smartphone" alt="स्मार्टफोन प्रो मैक्स">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">स्मार्टफोन प्रो मैक्स</h3>
+                            <p class="product-description">8GB RAM, 128GB स्टोरेज, 108MP कैमरा के साथ फ्लैगशिप स्मार्टफोन</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹24,999</span>
+                                <span class="price-usd">$312.49</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/smartphone" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Product 2 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Wireless+Headphones" alt="वायरलेस ब्लूटूथ हेडफोन">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">वायरलेस ब्लूटूथ हेडफोन</h3>
+                            <p class="product-description">नॉइज कैंसलेशन के साथ 20 घंटे की बैटरी लाइफ</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹2,999</span>
+                                <span class="price-usd">$37.49</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/headphones" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Product 3 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Cotton+T-shirt" alt="मेन्स कॉटन टी-शर्ट">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">मेन्स कॉटन टी-शर्ट</h3>
+                            <p class="product-description">100% शुद्ध कॉटन, आरामदायक फिट, नया स्टाइल</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹599</span>
+                                <span class="price-usd">$7.49</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/tshirt" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Special Offer Banner -->
+            <section id="special-offer" class="special-offer">
+                <h2>स्पेशल ऑफर: 50% तक छूट!</h2>
+                <p>फैशन, इलेक्ट्रॉनिक्स और होम डेकोर पर शानदार डिस्काउंट! जल्दी करें, सीमित समय के लिए है!</p>
+                <a href="#" class="btn btn-primary">अभी खरीदें</a>
+            </section>
+            
+            <!-- More Products -->
+            <section id="more-products">
+                <div class="section-title">
+                    <h2>और प्रोडक्ट्स</h2>
+                </div>
+                <div class="products-grid" id="more-products-container">
+                    <!-- More products will be loaded here dynamically -->
+                    
+                    <!-- Sample Product 4 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Smart+Fitness+Band" alt="स्मार्ट फिटनेस बैंड">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">स्मार्ट फिटनेस बैंड</h3>
+                            <p class="product-description">हार्ट रेट मॉनिटरिंग, स्लीप ट्रैकिंग, और वाटरप्रूफ डिज़ाइन</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹1,999</span>
+                                <span class="price-usd">$24.99</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/fitness-band" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Product 5 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Digital+Camera" alt="डिजिटल कैमरा प्रो">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">डिजिटल कैमरा प्रो</h3>
+                            <p class="product-description">4K रिकॉर्डिंग, 20MP सेंसर, स्टेबलाइज़ेशन के साथ</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹35,999</span>
+                                <span class="price-usd">$449.99</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/camera" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Product 6 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Home+Decor+Set" alt="होम डेकोर सेट">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">होम डेकोर सेट</h3>
+                            <p class="product-description">5 पीस होम डेकोर सेट, डिज़ाइनर फ्रेम्स, और कैंडल होल्डर्स</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹1,499</span>
+                                <span class="price-usd">$18.74</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/home-decor" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Shopping Links Section -->
+            <section id="shopping-links" class="shopping-links">
+                <div class="section-title">
+                    <h2>शॉपिंग लिंक्स</h2>
+                </div>
+                <div class="shopping-links-grid" id="shopping-links-container">
+                    <!-- Shopping links will be loaded here dynamically -->
+                    
+                    <!-- Sample Shopping Link 1 -->
+                    <div class="shopping-link-card">
+                        <h3 class="shopping-link-title">इलेक्ट्रॉनिक्स स्टोर</h3>
+                        <p class="shopping-link-description">सभी प्रकार के इलेक्ट्रॉनिक्स गैजेट्स के लिए वन-स्टॉप शॉप</p>
+                        <a href="https://example.com/electronics" target="_blank" class="shopping-link">
+                            अभी शॉप करें <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Sample Shopping Link 2 -->
+                    <div class="shopping-link-card">
+                        <h3 class="shopping-link-title">फैशन बाज़ार</h3>
+                        <p class="shopping-link-description">लेटेस्ट फैशन ट्रेंड्स और स्टाइलिश कपड़े</p>
+                        <a href="https://example.com/fashion" target="_blank" class="shopping-link">
+                            अभी शॉप करें <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Sample Shopping Link 3 -->
+                    <div class="shopping-link-card">
+                        <h3 class="shopping-link-title">होम एसेंशियल्स</h3>
+                        <p class="shopping-link-description">घर के लिए सभी जरूरी सामान एक ही जगह पर</p>
+                        <a href="https://example.com/home" target="_blank" class="shopping-link">
+                            अभी शॉप करें <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="bottom-nav-item active">
+            <i class="ri-home-line icon-3d"></i>
+            <span>होम</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-search-line icon-3d"></i>
+            <span>खोजें</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-heart-line icon-3d"></i>
+            <span>विशलिस्ट</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-shopping-cart-line icon-3d"></i>
+            <span>कार्ट</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-user-line icon-3d"></i>
+            <span>प्रोफाइल</span>
+        </a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MG Shopping के बारे में</h3>
+                    <p id="footer-about">MG Shopping आपकी सभी शॉपिंग जरूरतों के लिए एक ही जगह है। हम आपको एक बेहतरीन शॉपिंग अनुभव देने के लिए वेब से सर्वश्रेष्ठ उत्पादों का चयन करते हैं।</p>
+                </div>
+                <div class="footer-section">
+                    <h3>संपर्क करें</h3>
+                    <p>ईमेल: <span id="footer-email">info@mgshopping.com</span></p>
+                    <p>फोन: <span id="footer-phone">+91 9876543210</span></p>
+                    <p>वेबसाइट: <a id="footer-website" href="https://www.mgshopping.com" target="_blank">www.mgshopping.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>शॉपिंग जानकारी</h3>
+                    <p id="footer-shopping-info">हम आपको सर्वोत्तम डील्स लाने के लिए विश्वसनीय रिटेलर्स के साथ साझेदारी करते हैं। सभी खरीदारी हमारे एफिलिएट पार्टनर्स के माध्यम से सुरक्षित रूप से प्रोसेस की जाती है।</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MG Shopping. सर्वाधिकार सुरक्षित।</p>
+                <button id="admin-login-btn" class="admin-login-btn">एडमिन लॉगिन</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="close-login-modal">&times;</span>
+            <h2 class="modal-title">एडमिन लॉगिन</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="password">पासवर्ड</label>
+                    <input type="password" id="password" class="form-control" placeholder="पासवर्ड दर्ज करें" required>
+                </div>
+                <div class="admin-actions">
+                    <button type="submit" class="btn btn-primary">लॉगिन</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // DOM Elements
+        const adminPanel = document.getElementById('admin-panel');
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const loginModal = document.getElementById('login-modal');
+        const closeLoginModal = document.getElementById('close-login-modal');
+        const loginForm = document.getElementById('login-form');
+        const adminTabs = document.querySelectorAll('.admin-tab');
+        const adminTabContents = document.querySelectorAll('.admin-tab-content');
+        const productForm = document.getElementById('product-form');
+        const productImageInput = document.getElementById('product-image');
+        const productImagePreview = document.getElementById('product-image-preview');
+        const productsContainer = document.getElementById('products-container');
+        const moreProductsContainer = document.getElementById('more-products-container');
+        const adminProductList = document.getElementById('admin-product-list');
+        const bannerForm = document.getElementById('banner-form');
+        const footerForm = document.getElementById('footer-form');
+        const shoppingLinkForm = document.getElementById('shopping-link-form');
+        const shoppingLinksContainer = document.getElementById('shopping-links-container');
+        const adminShoppingLinksList = document.getElementById('admin-shopping-links-list');
+        const carouselSlides = document.querySelectorAll('.carousel-slide');
+        const carouselIndicators = document.querySelectorAll('.carousel-indicator');
+        
+        // Default admin password
+        const DEFAULT_PASSWORD = 'admin123';
+        
+        // Check if user is logged in
+        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        
+        // Show admin panel if logged in
+        if (isLoggedIn) {
+            adminPanel.style.display = 'block';
+            adminLoginBtn.textContent = 'लॉगआउट';
+        }
+        
+        // Load data from localStorage
+        function loadData() {
+            // Load products
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            renderProducts(products);
+            renderAdminProducts(products);
+            
+            // Load banners
+            const banners = JSON.parse(localStorage.getItem('banners')) || [];
+            renderBanners(banners);
+            
+            // Load footer info
+            const footerInfo = JSON.parse(localStorage.getItem('footerInfo')) || {
+                email: 'info@mgshopping.com',
+                phone: '+91 9876543210',
+                website: 'https://www.mgshopping.com',
+                about: 'MG Shopping आपकी सभी शॉपिंग जरूरतों के लिए एक ही जगह है। हम आपको एक बेहतरीन शॉपिंग अनुभव देने के लिए वेब से सर्वश्रेष्ठ उत्पादों का चयन करते हैं।',
+                shoppingInfo: 'हम आपको सर्वोत्तम डील्स लाने के लिए विश्वसनीय रिटेलर्स के साथ साझेदारी करते हैं। सभी खरीदारी हमारे एफिलिएट पार्टनर्स के माध्यम से सुरक्षित रूप से प्रोसेस की जाती है।'
+            };
+            
+            document.getElementById('footer-email').textContent = footerInfo.email;
+            document.getElementById('footer-phone').textContent = footerInfo.phone;
+            document.getElementById('footer-website').textContent = footerInfo.website;
+            document.getElementById('footer-website').href = footerInfo.website;
+            document.getElementById('footer-about').textContent = footerInfo.about;
+            document.getElementById('footer-shopping-info').textContent = footerInfo.shoppingInfo;
+            
+            // Set footer form values
+            document.getElementById('footer-email-input').value = footerInfo.email;
+            document.getElementById('footer-phone-input').value = footerInfo.phone;
+            document.getElementById('footer-website-input').value = footerInfo.website;
+            document.getElementById('footer-about-input').value = footerInfo.about;
+            
+            // Load shopping links
+            const shoppingLinks = JSON.parse(localStorage.getItem('shoppingLinks')) || [];
+            renderShoppingLinks(shoppingLinks);
+            renderAdminShoppingLinks(shoppingLinks);
+        }
+        
+        // Render products in the main container
+        function renderProducts(products) {
+            if (products.length === 0) return;
+            
+            // Clear existing products
+            productsContainer.innerHTML = '';
+            moreProductsContainer.innerHTML = '';
+            
+            // Display first 3 products in the first container
+            const firstThreeProducts = products.slice(0, 3);
+            firstThreeProducts.forEach(product => {
+                productsContainer.appendChild(createProductCard(product));
+            });
+            
+            // Display next 3 products in the second container
+            const nextThreeProducts = products.slice(3, 6);
+            nextThreeProducts.forEach(product => {
+                moreProductsContainer.appendChild(createProductCard(product));
+            });
+        }
+        
+        // Create product card element
+        function createProductCard(product) {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.innerHTML = `
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.title}">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title">${product.title}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-price">
+                        <span class="price-inr">₹${product.priceINR}</span>
+                        <span class="price-usd">$${product.priceUSD}</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="${product.affiliateLink}" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                    </div>
+                </div>
+            `;
+            return productCard;
+        }
+        
+        // Render products in the admin panel
+        function renderAdminProducts(products) {
+            if (!adminProductList) return;
+            
+            adminProductList.innerHTML = '';
+            
+            products.forEach((product, index) => {
+                const productItem = document.createElement('div');
+                productItem.className = 'admin-product-item';
+                productItem.innerHTML = `
+                    <div class="admin-product-image">
+                        <img src="${product.image}" alt="${product.title}">
+                    </div>
+                    <div class="admin-product-info">
+                        <div class="admin-product-title">${product.title}</div>
+                        <div class="admin-product-price">₹${product.priceINR} | $${product.priceUSD}</div>
+                    </div>
+                    <div class="admin-product-actions">
+                        <button class="admin-btn admin-btn-delete" data-index="${index}">हटाएं</button>
+                    </div>
+                `;
+                adminProductList.appendChild(productItem);
+            });
+            
+            // Add event listeners to delete buttons
+            const deleteButtons = adminProductList.querySelectorAll('.admin-btn-delete');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    deleteProduct(index);
+                });
+            });
+        }
+        
+        // Delete product
+        function deleteProduct(index) {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            products.splice(index, 1);
+            localStorage.setItem('products', JSON.stringify(products));
+            renderProducts(products);
+            renderAdminProducts(products);
+        }
+        
+        // Render banners
+        function renderBanners(banners) {
+            // Implementation for banner rendering
+            // This would typically insert banner HTML at specific positions
+        }
+        
+        // Render shopping links
+        function renderShoppingLinks(links) {
+            if (links.length === 0) return;
+            
+            shoppingLinksContainer.innerHTML = '';
+            
+            links.forEach(link => {
+                const linkCard = document.createElement('div');
+                linkCard.className = 'shopping-link-card';
+                linkCard.innerHTML = `
+                    <h3 class="shopping-link-title">${link.title}</h3>
+                    <p class="shopping-link-description">${link.description}</p>
+                    <a href="${link.url}" target="_blank" class="shopping-link">
+                        अभी शॉप करें <i class="ri-arrow-right-line"></i>
+                    </a>
+                `;
+                shoppingLinksContainer.appendChild(linkCard);
+            });
+        }
+        
+        // Render shopping links in admin panel
+        function renderAdminShoppingLinks(links) {
+            if (!adminShoppingLinksList) return;
+            
+            adminShoppingLinksList.innerHTML = '';
+            
+            links.forEach((link, index) => {
+                const linkItem = document.createElement('div');
+                linkItem.className = 'admin-product-item';
+                linkItem.innerHTML = `
+                    <div class="admin-product-info">
+                        <div class="admin-product-title">${link.title}</div>
+                        <div class="admin-product-price">${link.url}</div>
+                    </div>
+                    <div class="admin-product-actions">
+                        <button class="admin-btn admin-btn-delete" data-index="${index}">हटाएं</button>
+                    </div>
+                `;
+                adminShoppingLinksList.appendChild(linkItem);
+            });
+            
+            // Add event listeners to delete buttons
+            const deleteButtons = adminShoppingLinksList.querySelectorAll('.admin-btn-delete');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    deleteShoppingLink(index);
+                });
+            });
+        }
+        
+        // Delete shopping link
+        function deleteShoppingLink(index) {
+            const links = JSON.parse(localStorage.getItem('shoppingLinks')) || [];
+            links.splice(index, 1);
+            localStorage.setItem('shoppingLinks', JSON.stringify(links));
+            renderShoppingLinks(links);
+            renderAdminShoppingLinks(links);
+        }
+        
+        // Event Listeners
+        
+        // Admin Login Button
+        adminLoginBtn.addEventListener('click', function() {
+            if (isLoggedIn) {
+                // Logout
+                localStorage.setItem('isLoggedIn', 'false');
+                isLoggedIn = false;
+                adminPanel.style.display = 'none';
+                adminLoginBtn.textContent = 'एडमिन लॉगिन';
+            } else {
+                // Show login modal
+                loginModal.style.display = 'flex';
+            }
+        });
+        
+        // Close Login Modal
+        closeLoginModal.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+        });
+        
+        // Login Form Submit
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            
+            if (password === DEFAULT_PASSWORD) {
+                localStorage.setItem('isLoggedIn', 'true');
+                isLoggedIn = true;
+                adminPanel.style.display = 'block';
+                loginModal.style.display = 'none';
+                adminLoginBtn.textContent = 'लॉगआउट';
+            } else {
+                alert('गलत पासवर्ड! कृपया पुनः प्रयास करें।');
+            }
+        });
+        
+        // Admin Tabs
+        adminTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and contents
+                adminTabs.forEach(t => t.classList.remove('active'));
+                adminTabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+        
+        // Product Image Preview
+        productImageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    productImagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Product Form Submit
+        productForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('product-title').value;
+            const description = document.getElementById('product-description').value;
+            const priceINR = document.getElementById('product-price-inr').value;
+            const priceUSD = document.getElementById('product-price-usd').value;
+            const affiliateLink = document.getElementById('product-affiliate-link').value;
+            const file = productImageInput.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const product = {
+                        title,
+                        description,
+                        priceINR,
+                        priceUSD,
+                        affiliateLink,
+                        image: e.target.result
+                    };
+                    
+                    // Save product to localStorage
+                    const products = JSON.parse(localStorage.getItem('products')) || [];
+                    products.push(product);
+                    localStorage.setItem('products', JSON.stringify(products));
+                    
+                    // Render products
+                    renderProducts(products);
+                    renderAdminProducts(products);
+                    
+                    // Reset form
+                    productForm.reset();
+                    productImagePreview.innerHTML = '<span class="image-preview-text">इमेज प्रीव्यू</span>';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Banner Form Submit
+        bannerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const html = document.getElementById('banner-html').value;
+            
+            // Save banner to localStorage
+            const banners = JSON.parse(localStorage.getItem('banners')) || [];
+            banners.push({ html });
+            localStorage.setItem('banners', JSON.stringify(banners));
+            
+            // Render banners
+            renderBanners(banners);
+            
+            // Reset form
+            bannerForm.reset();
+        });
+        
+        // Footer Form Submit
+        footerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('footer-email-input').value;
+            const phone = document.getElementById('footer-phone-input').value;
+            const website = document.getElementById('footer-website-input').value;
+            const about = document.getElementById('footer-about-input').value;
+            
+            // Save footer info to localStorage
+            const footerInfo = {
+                email,
+                phone,
+                website,
+                about,
+                shoppingInfo: document.getElementById('footer-shopping-info').textContent
+            };
+            localStorage.setItem('footerInfo', JSON.stringify(footerInfo));
+            
+            // Update footer elements
+            document.getElementById('footer-email').textContent = email;
+            document.getElementById('footer-phone').textContent = phone;
+            document.getElementById('footer-website').textContent = website;
+            document.getElementById('footer-website').href = website;
+            document.getElementById('footer-about').textContent = about;
+            
+            alert('फुटर जानकारी अपडेट कर दी गई है!');
+        });
+        
+        // Shopping Link Form Submit
+        shoppingLinkForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('shopping-link-title').value;
+            const description = document.getElementById('shopping-link-description').value;
+            const url = document.getElementById('shopping-link-url').value;
+            
+            // Save shopping link to localStorage
+            const links = JSON.parse(localStorage.getItem('shoppingLinks')) || [];
+            links.push({ title, description, url });
+            localStorage.setItem('shoppingLinks', JSON.stringify(links));
+            
+            // Render shopping links
+            renderShoppingLinks(links);
+            renderAdminShoppingLinks(links);
+            
+            // Reset form
+            shoppingLinkForm.reset();
+        });
+        
+        // Carousel Functionality
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            carouselSlides.forEach(slide => slide.classList.remove('active'));
+            carouselIndicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            carouselSlides[index].classList.add('active');
+            carouselIndicators[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % carouselSlides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Auto advance carousel
+        setInterval(nextSlide, 5000);
+        
+        // Carousel indicator click
+        carouselIndicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => showSlide(index));
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+        
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>

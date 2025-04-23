@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>इलेक्ट्रॉनिक्स - MG Shopping</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            /* Primary Colors */
+            --primary-color: #8A2BE2; /* Electric Purple */
+            --secondary-color: #00BFFF; /* Sky Blue */
+            --accent-color: #FF6347; /* Sunset Orange */
+            
+            /* Secondary Colors */
+            --white-color: rgba(255, 255, 255, 0.9);
+            --glass-white: rgba(255, 255, 255, 0.2);
+            --deep-navy: #1A1A2E;
+            
+            /* Background Colors */
+            --bg-gradient-1: linear-gradient(135deg, #1A1A2E 0%, #16213E 100%);
+            --bg-gradient-2: linear-gradient(135deg, #16213E 0%, #0F3460 100%);
+            
+            /* UI Effects */
+            --glass-effect: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --neumorphic-shadow: 6px 6px 12px rgba(0, 0, 0, 0.15), -6px -6px 12px rgba(255, 255, 255, 0.1);
+            --inner-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.15), inset -2px -2px 5px rgba(255, 255, 255, 0.1);
+            --glow-effect: 0 0 15px rgba(138, 43, 226, 0.5);
+            
+            /* Other */
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-xl: 32px;
+            --border-radius-full: 50%;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--bg-gradient-1);
+            color: var(--white-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Glassmorphism Card */
+        .glass-card {
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        /* Neumorphic Button */
+        .neumorphic-btn {
+            background: var(--deep-navy);
+            box-shadow: var(--neumorphic-shadow);
+            border-radius: var(--border-radius-md);
+            border: none;
+            padding: 12px 24px;
+            color: var(--white-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neumorphic-btn:hover {
+            box-shadow: var(--inner-shadow);
+            transform: translateY(2px);
+        }
+        
+        .neumorphic-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .neumorphic-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* 3D Icon */
+        .icon-3d {
+            font-size: 1.5rem;
+            color: var(--white-color);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-3d:hover {
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 600;
+        }
+        
+        /* Glow Effect */
+        .glow-effect {
+            box-shadow: var(--glow-effect);
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 1rem 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-right: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+        
+        .logo span {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: var(--white-color);
+        }
+        
+        /* Search Bar Styles */
+        .search-bar {
+            width: 100%;
+            max-width: 700px;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius-full);
+            font-size: 1rem;
+            outline: none;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--white-color);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .search-bar input:focus {
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        .search-bar button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--white-color);
+        }
+        
+        /* Navigation Styles */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-nav a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-full);
+            color: var(--white-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--neumorphic-shadow);
+        }
+        
+        .category-nav a:hover,
+        .category-nav a.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: var(--glow-effect);
+            transform: translateY(-3px);
+        }
+        
+        /* Main Content Styles */
+        main {
+            padding: 1rem 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius-full);
+            box-shadow: var(--glow-effect);
+        }
+        
+        /* Product Grid Styles */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .product-card {
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--glass-shadow), var(--glow-effect);
+        }
+        
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-details {
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--white-color);
+        }
+        
+        .product-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .price-inr {
+            font-weight: 700;
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .price-usd {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: var(--bg-gradient-2);
+            color: var(--white-color);
+            padding: 3rem 0 5rem;
+            position: relative;
+            margin-top: 3rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary-color);
+            border-radius: var(--border-radius-full);
+        }
+        
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .admin-login-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+        
+        .admin-login-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white-color);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .category-nav {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+            
+            .category-nav::-webkit-scrollbar {
+                height: 0;
+            }
+            
+            .category-nav a {
+                flex: 0 0 auto;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            z-index: 100;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--white-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .bottom-nav-item i {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            transition: all 0.3s ease;
+        }
+        
+        .bottom-nav-item span {
+            font-size: 0.8rem;
+        }
+        
+        .bottom-nav-item.active {
+            color: var(--primary-color);
+        }
+        
+        .bottom-nav-item.active i {
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+        
+        .bottom-nav-item:hover i {
+            transform: translateY(-5px);
+        }
+        
+        /* Category Page Specific Styles */
+        .category-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--glass-shadow);
+            text-align: center;
+        }
+        
+        .category-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .category-header p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            color: var(--white-color);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-home i {
+            margin-right: 0.5rem;
+        }
+        
+        .back-to-home:hover {
+            transform: translateX(-5px);
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>MG Shopping</h1>
+                    <span>अपनी पसंद की खरीदारी</span>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="प्रोडक्ट खोजें...">
+                    <button><i class="ri-search-line icon-3d"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Navigation -->
+    <div class="container">
+        <div class="category-nav">
+            <a href="../index.html">होम</a>
+            <a href="mobile.html">मोबाइल</a>
+            <a href="fashion.html">फैशन</a>
+            <a href="electronics.html" class="active">इलेक्ट्रॉनिक्स</a>
+            <a href="home.html">होम</a>
+            <a href="beauty.html">ब्यूटी</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <a href="../index.html" class="back-to-home">
+                <i class="ri-arrow-left-line"></i> होम पेज पर वापस जाएं
+            </a>
+            
+            <div class="category-header">
+                <h2>इलेक्ट्रॉनिक्स</h2>
+                <p>नवीनतम इलेक्ट्रॉनिक गैजेट्स और उपकरणों की विस्तृत श्रेणी</p>
+            </div>
+            
+            <section id="products">
+                <div class="section-title">
+                    <h2>इलेक्ट्रॉनिक्स प्रोडक्ट्स</h2>
+                </div>
+                <div class="products-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Smart+TV" alt="स्मार्ट टीवी">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">4K स्मार्ट टीवी</h3>
+                            <p class="product-description">43 इंच 4K अल्ट्रा HD स्मार्ट टीवी, वॉयस कंट्रोल के साथ</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹32,999</span>
+                                <span class="price-usd">$412.49</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/smart-tv" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Laptop" alt="लैपटॉप">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">गेमिंग लैपटॉप</h3>
+                            <p class="product-description">16GB RAM, 512GB SSD, डेडिकेटेड ग्राफिक्स कार्ड के साथ</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹79,999</span>
+                                <span class="price-usd">$999.99</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/laptop" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Headphones" alt="हेडफोन्स">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">वायरलेस हेडफोन्स</h3>
+                            <p class="product-description">एक्टिव नॉइज कैंसलेशन के साथ प्रीमियम वायरलेस हेडफोन्स</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹14,999</span>
+                                <span class="price-usd">$187.49</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/headphones" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Smart+Watch" alt="स्मार्ट वॉच">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">स्मार्ट वॉच</h3>
+                            <p class="product-description">हार्ट रेट मॉनिटरिंग, स्लीप ट्रैकिंग और वॉटरप्रूफ डिज़ाइन</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹8,999</span>
+                                <span class="price-usd">$112.49</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/smartwatch" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 5 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Bluetooth+Speaker" alt="ब्लूटूथ स्पीकर">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">पोर्टेबल ब्लूटूथ स्पीकर</h3>
+                            <p class="product-description">वॉटरप्रूफ, 20 घंटे की बैटरी लाइफ के साथ पावरफुल साउंड</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹4,999</span>
+                                <span class="price-usd">$62.49</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/speaker" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 6 -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200?text=Camera" alt="डिजिटल कैमरा">
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">डिजिटल कैमरा</h3>
+                            <p class="product-description">4K रिकॉर्डिंग, 20MP सेंसर, स्टेबलाइजेशन के साथ</p>
+                            <div class="product-price">
+                                <span class="price-inr">₹35,999</span>
+                                <span class="price-usd">$449.99</span>
+                            </div>
+                            <div class="product-actions">
+                                <a href="https://example.com/affiliate/camera" target="_blank" class="btn btn-primary">अभी खरीदें</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="../index.html" class="bottom-nav-item">
+            <i class="ri-home-line icon-3d"></i>
+            <span>होम</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-search-line icon-3d"></i>
+            <span>खोजें</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-heart-line icon-3d"></i>
+            <span>विशलिस्ट</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-shopping-cart-line icon-3d"></i>
+            <span>कार्ट</span>
+        </a>
+        <a href="#" class="bottom-nav-item">
+            <i class="ri-user-line icon-3d"></i>
+            <span>प्रोफाइल</span>
+        </a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MG Shopping के बारे में</h3>
+                    <p id="footer-about">MG Shopping आपकी सभी शॉपिंग जरूरतों के लिए एक ही जगह है। हम आपको एक बेहतरीन शॉपिंग अनुभव देने के लिए वेब से सर्वश्रेष्ठ उत्पादों का चयन करते हैं।</p>
+                </div>
+                <div class="footer-section">
+                    <h3>संपर्क करें</h3>
+                    <p>ईमेल: <span id="footer-email">info@mgshopping.com</span></p>
+                    <p>फोन: <span id="footer-phone">+91 9876543210</span></p>
+                    <p>वेबसाइट: <a id="footer-website" href="https://www.mgshopping.com" target="_blank">www.mgshopping.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>शॉपिंग जानकारी</h3>
+                    <p id="footer-shopping-info">हम आपको सर्वोत्तम डील्स लाने के लिए विश्वसनीय रिटेलर्स के साथ साझेदारी करते हैं। सभी खरीदारी हमारे एफिलिएट पार्टनर्स के माध्यम से सुरक्षित रूप से प्रोसेस की जाती है।</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MG Shopping. सर्वाधिकार सुरक्षित।</p>
+                <button id="admin-login-btn" class="admin-login-btn">एडमिन लॉगिन</button>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
